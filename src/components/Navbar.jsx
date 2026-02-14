@@ -8,10 +8,10 @@ const Navbar = () => {
             <span className="text-green-500">OP/&gt;</span>
             
             </div>
-        <button className="text-white bg-green-700 my-5 rounded-full flex justify-between items-center">
+        <a href="https://github.com/moinchhipa/Password_manager_Local" target="_blank"><button className="text-white cursor-pointer bg-green-700 my-5 rounded-full flex justify-between items-center">
           <img className="invert w-10 p-1" src="/icons/github.svg" alt="" />
           <span className="font-bold px-4">GitHub</span>
-        </button>
+        </button></a>
       </div>
     </nav>
   );
