@@ -1,16 +1,107 @@
-# React + Vite
+# PassOP – Password Manager 🔐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PassOP is a simple and responsive password manager built using **React** and **Tailwind CSS**.
+It allows users to securely store, manage, copy, edit, and delete website credentials directly in the browser using **Local Storage**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+* Save website credentials (Site, Username, Password)
+* Copy credentials to clipboard with toast notification
+* Show / Hide password toggle
+* Edit existing passwords
+* Delete passwords with confirmation
+* Unique ID for each entry (UUID)
+* Data persistence using **localStorage**
+* Fully responsive design (Mobile + Desktop)
+* Toast notifications for actions (React Toastify)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **React (Vite)**
+* **Tailwind CSS**
+* **React Toastify**
+* **UUID**
+* **Local Storage API**
+
+
+---
+
+## ⚙️ Installation & Setup
+
+1. Clone the repository
+
+```
+git clone https://github.com/your-username/passop.git
+```
+
+2. Navigate to the project folder
+
+```
+cd passop
+```
+
+3. Install dependencies
+
+```
+npm install
+```
+
+4. Start the development server
+
+```
+npm run dev
+```
+
+---
+
+## 💾 Data Storage
+
+* All credentials are stored in the browser using **localStorage**
+* Data persists even after page refresh or browser restart
+* Data is device and browser specific
+
+---
+
+## 📱 Responsive Design
+
+The application is fully responsive:
+
+* Mobile friendly layout
+* Scrollable table on small screens
+* Flexible form layout using Tailwind
+
+---
+
+## ⚠️ Important Note
+
+This project stores passwords in **plain text** in localStorage.
+It is intended for **learning and demonstration purposes only**.
+
+For production use, passwords should be:
+
+* Encrypted
+* Stored securely on a backend
+* Protected with authentication
+
+---
+
+## 📸 Screenshot
+
+(Add your project screenshot here)
+
+---
+
+## 👨‍💻 Author
+
+**Moin**
+Aspiring MERN Stack Developer
+
+---
+
+## ⭐ If you like this project
+
+Give it a star on GitHub and feel free to contribute!
