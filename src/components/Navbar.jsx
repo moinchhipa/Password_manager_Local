@@ -8,19 +8,6 @@ const Navbar = () => {
             <span className="text-green-500">OP/&gt;</span>
             
             </div>
-        {/* <ul>
-          <li className="flex gap-4">
-            <a className="hover:font-bold" href="/">
-              Home
-            </a>
-            <a className="hover:font-bold" href="/">
-              About
-            </a>
-            <a className="hover:font-bold" href="/">
-              Contact
-            </a>
-          </li>
-        </ul> */}
         <button className="text-white bg-green-700 my-5 rounded-full flex justify-between items-center">
           <img className="invert w-10 p-1" src="/icons/github.svg" alt="" />
           <span className="font-bold px-4">GitHub</span>

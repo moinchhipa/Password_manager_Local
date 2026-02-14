@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 const Manager = () => {
   const ref = useRef();
@@ -17,12 +18,15 @@ const Manager = () => {
   useEffect(() => {
     let passwords = localStorage.getItem("passwords");
     if (passwords) {
-      setPasswordArray = JSON.parse(passwords);
+      setPasswordArray(JSON.parse(passwords));
     }
-  });
+  }, []);
 
   const copyText = (text) => {
     navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!", {
+      autoClose: 2000,
+    });
   };
 
   const handleChange = (e) => {
@@ -40,16 +44,49 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    setPasswordArray([...passwordArray, form]);
-    localStorage.setItem("password", JSON.stringify([...passwordArray, form]));
-    console.log(passwordArray);
+    if (form.site.length > 3 && form.username.length > 3 && form.password.length > 3) {
+      toast.success("Password saved!", {
+        autoClose: 2000,
+      });
+      const newArray = [...passwordArray, { ...form, id: uuidv4() }];
+      setPasswordArray(newArray);
+      localStorage.setItem("passwords", JSON.stringify(newArray));
+      setForm({
+        site: "",
+        username: "",
+        password: "",
+      });
+    } else {
+      toast.error("Please fill all the fields!", {
+        autoClose: 2000,
+      });
+    }
+  };
+
+  const deletePassword = (id) => {
+    toast.success("Password deleted!", {
+      autoClose: 2000,
+    });
+    console.log("Deleting password with id:", id);
+    let c = confirm("Do you really want to delete this password?");
+    if(c){
+      const newArray = passwordArray.filter((item) => item.id !== id);
+      setPasswordArray(newArray);
+      localStorage.setItem("passwords", JSON.stringify(newArray));
+    }
+  };
+
+  const editPassword = (id) => {
+    console.log("Editing password with id:", id);
+    setForm(passwordArray.filter((i) => i.id === id)[0]);
+    setPasswordArray(passwordArray.filter((item) => item.id !== id));
   };
 
   return (
     <>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -57,24 +94,23 @@ const Manager = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
-        transition={Bounce}
+        theme="dark"
       />
-      
+
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-20 blur-[100px]"></div>
       </div>
-      <div className="mycontainer">
+      <div className="p-2 pt-5 md:px-0 md:mycontainer">
         <h1 className="text-4xl font-bold text-center">
           <span className="text-green-500">&lt;</span>
           Pass
           <span className="text-green-500">OP/&gt;</span>
         </h1>
         <p className="text-lg text-green-900 text-center">
-          Your own password manager
+          Your own Password Manager
         </p>
 
-        <div className="text-black flex flex-col items-center p-4 gap-5">
+        <div className="text-black flex max-w-5xl mx-auto flex-col items-center p-4 gap-5">
           <input
             value={form.site}
             onChange={handleChange}
@@ -82,9 +118,9 @@ const Manager = () => {
             className="rounded-full border border-green-500 w-full px-4 py-2"
             type="text"
             name="site"
-            id=""
+            id="site"
           />
-          <div className="flex w-full gap-8 justify-between">
+          <div className="flex flex-col md:flex-row w-full gap-6 justify-between">
             <input
               value={form.username}
               onChange={handleChange}
@@ -92,7 +128,7 @@ const Manager = () => {
               className="rounded-full border border-green-500 w-full px-4 py-2"
               type="text"
               name="username"
-              id=""
+              id="username"
             />
             <div className="relative">
               <input
@@ -103,7 +139,7 @@ const Manager = () => {
                 className="rounded-full border border-green-500 w-full px-4 py-2"
                 type="password"
                 name="password"
-                id=""
+                id="password"
               />
               <span
                 className="absolute top-[8px] right-[10px] cursor-pointer"
@@ -127,19 +163,21 @@ const Manager = () => {
               src="https://cdn.lordicon.com/efxgwrkc.json"
               trigger="hover"
             ></lord-icon>
-            Add Password
+            Save
           </button>
         </div>
-        <div className="passwords">
+
+        <div className="passwords max-w-5xl mx-auto">
           <h2 className="font-bold text-xl py-4">Your passwords</h2>
           {passwordArray.length === 0 && <div>No passwords to show</div>}
           {passwordArray.length != 0 && (
-            <table className="table-auto w-full rounded-md overflow-hidden">
+            <table className="table-auto w-full rounded-md overflow-hidden mb-10">
               <thead className="bg-green-800 text-white">
                 <tr>
                   <th className="py-2">Site</th>
                   <th className="py-2">Username</th>
                   <th className="py-2">Password</th>
+                  <th className="py-2">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-green-100">

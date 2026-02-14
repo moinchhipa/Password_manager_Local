@@ -13,7 +13,7 @@ const Footer = () => {
           src="icons/heart.png"
           alt=""
         />{" "}
-        by Moin Chhipa
+        by Moin Chhipa{" "}
       </div>
     </div>
   );
